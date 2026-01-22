@@ -49,7 +49,38 @@ class SuratKeluarController extends Controller
 
     public function create()
     {
-        return view('surat-keluar.create');
+        return view('surat_keluar.create');
+    }
+
+    public function edit($id)
+    {
+        $surat = SuratKeluar::findOrFail($id);
+        return view('surat_keluar.edit', compact('surat'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'no_surat' => 'required',
+            'tgl_surat' => 'required',
+            'tujuan' => 'required',
+            'perihal' => 'required',
+            'jenis_surat' => 'required',
+            'sifat_surat' => 'required',
+        ]);
+
+        SuratKeluar::findOrFail($id)->update($request->all());
+
+        return redirect()->route('surat_keluar.index')
+            ->with('success', 'Data surat keluar berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        SuratKeluar::findOrFail($id)->delete();
+
+        return redirect()->route('surat_keluar.index')
+            ->with('success', 'Data surat keluar berhasil dihapus');
     }
 
 }

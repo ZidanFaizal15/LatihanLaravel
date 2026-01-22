@@ -91,6 +91,7 @@
                         <th class="border p-2">Jenis</th>
                         <th class="border p-2">Sifat</th>
                         <th class="border p-2">Tanggal</th>
+                        <th class="border p-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,6 +102,26 @@
                             <td class="border p-2">{{ $item->jenis_surat }}</td>
                             <td class="border p-2">{{ $item->sifat_surat }}</td>
                             <td class="border p-2">{{ $item->tgl_surat }}</td>
+                            <td class="border p-2 flex gap-2">
+
+                                {{-- EDIT --}}
+                                <a href="{{ route('surat-keluar.edit', $item->id) }}"
+                                class="px-3 py-1 bg-yellow-500 rounded text-black">
+                                    Edit
+                                </a>
+
+                                {{-- DELETE --}}
+                                <form action="{{ route('surat-keluar.destroy', $item->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus surat ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="px-3 py-1 bg-red-600 rounded text-black">
+                                        Hapus
+                                    </button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

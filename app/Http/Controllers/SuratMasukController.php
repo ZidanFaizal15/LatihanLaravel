@@ -42,7 +42,48 @@ class SuratMasukController extends Controller
             'created_by'  => Auth::id(),
         ]);
 
-        return redirect()->route('surat-masuk.index')
+        return redirect()->route('surat_masuk.index')
             ->with('success', 'Surat masuk berhasil disimpan');
     }
+
+    /**
+     * form edit data
+     * */
+    public function edit($id)
+    {
+        $surat = SuratMasuk::findOrFail($id);
+        return view('surat_masuk.edit', compact('surat'));
+    }
+
+    /**
+     * update data
+     * */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'no_surat' => 'required',
+            'tgl_surat' => 'required',
+            'pengirim' => 'required',
+            'perihal' => 'required',
+            'jenis_surat' => 'required',
+            'sifat_surat' => 'required',
+        ]);
+
+        SuratMasuk::findOrFail($id)->update($request->all());
+
+        return redirect()->route('surat_masuk.index')
+            ->with('success', 'Data surat berhasil diperbarui');
+    }
+
+    /**
+     * delete data
+     * */
+    public function destroy($id)
+    {
+        SuratMasuk::findOrFail($id)->delete();
+
+        return redirect()->route('surat_masuk.index')
+            ->with('success', 'Data surat berhasil dihapus');
+    }
+
 }

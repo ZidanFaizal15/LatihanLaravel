@@ -83,28 +83,50 @@
         <div class="bg-white p-6 rounded shadow">
             <h3 class="font-semibold mb-4">Data Surat Masuk</h3>
 
-            <table class="w-full border">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">No Surat</th>
-                        <th class="border p-2">Pengirim</th>
-                        <th class="border p-2">Jenis</th>
-                        <th class="border p-2">Sifat</th>
-                        <th class="border p-2">Tanggal</th>
+        <table class="w-full border">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border p-2">No Surat</th>
+                    <th class="border p-2">Pengirim</th>
+                    <th class="border p-2">Jenis</th>
+                    <th class="border p-2">Sifat</th>
+                    <th class="border p-2">Tanggal</th>
+                    <th class="border p-2">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($suratMasuk as $item)
+                    <tr>
+                        <td class="border p-2">{{ $item->no_surat }}</td>
+                        <td class="border p-2">{{ $item->pengirim }}</td>
+                        <td class="border p-2">{{ $item->jenis_surat }}</td>
+                        <td class="border p-2">{{ $item->sifat_surat }}</td>
+                        <td class="border p-2">{{ $item->tgl_surat }}</td>
+                        <td class="border p-2 flex gap-2">
+
+                            {{-- EDIT --}}
+                            <a href="{{ route('surat-masuk.edit', $item->id) }}"
+                            class="px-3 py-1 bg-yellow-500 rounded text-black">
+                                Edit
+                            </a>
+
+                            {{-- DELETE --}}
+                            <form action="{{ route('surat-masuk.destroy', $item->id) }}"
+                                method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="px-3 py-1 bg-red-600 rounded text-black">
+                                    Hapus
+                                </button>
+                            </form>
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($suratMasuk as $item)
-                        <tr>
-                            <td class="border p-2">{{ $item->no_surat }}</td>
-                            <td class="border p-2">{{ $item->pengirim }}</td>
-                            <td class="border p-2">{{ $item->jenis_surat }}</td>
-                            <td class="border p-2">{{ $item->sifat_surat }}</td>
-                            <td class="border p-2">{{ $item->tgl_surat }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                @endforeach
+            </tbody>
+        </table>
+
         </div>
 
     </div>
