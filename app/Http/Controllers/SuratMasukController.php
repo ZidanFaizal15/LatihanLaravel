@@ -42,7 +42,7 @@ class SuratMasukController extends Controller
             'created_by'  => Auth::id(),
         ]);
 
-        return redirect()->route('surat_masuk.index')
+        return redirect()->route('surat-masuk.index')
             ->with('success', 'Surat masuk berhasil disimpan');
     }
 
@@ -52,7 +52,7 @@ class SuratMasukController extends Controller
     public function edit($id)
     {
         $surat = SuratMasuk::findOrFail($id);
-        return view('surat_masuk.edit', compact('surat'));
+        return view('surat-masuk.edit', compact('surat'));
     }
 
     /**
@@ -71,7 +71,7 @@ class SuratMasukController extends Controller
 
         SuratMasuk::findOrFail($id)->update($request->all());
 
-        return redirect()->route('surat_masuk.index')
+        return redirect()->route('surat-masuk.index')
             ->with('success', 'Data surat berhasil diperbarui');
     }
 
@@ -82,7 +82,7 @@ class SuratMasukController extends Controller
     {
         SuratMasuk::findOrFail($id)->delete();
 
-        return redirect()->route('surat_masuk.index')
+        return redirect()->route('surat-masuk.index')
             ->with('success', 'Data surat berhasil dihapus');
     }
 
