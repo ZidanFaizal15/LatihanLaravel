@@ -17,8 +17,8 @@ return new class extends Migration
         $table->date('tgl_surat');
         $table->string('tujuan');
         $table->string('perihal');
-        $table->enum('jenis_surat', ['FISIK', 'DIGITAL']);
-        $table->enum('sifat_surat', ['UMUM', 'RAHASIA']);
+        $table->enum('jenis_surat', ['INTERNAL', 'EKSTERNAL']);
+        $table->enum('sifat_surat', ['BIASA', 'PENTING', 'RAHASIA_']);
         $table->string('file_digital')->nullable();
         $table->foreignId('created_by')->constrained('users');
         $table->timestamps();

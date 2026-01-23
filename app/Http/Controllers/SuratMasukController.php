@@ -52,7 +52,7 @@ class SuratMasukController extends Controller
     public function edit($id)
     {
         $surat = SuratMasuk::findOrFail($id);
-        return view('surat-masuk.edit', compact('surat'));
+        return view('surat_masuk.edit', compact('surat'));
     }
 
     /**
